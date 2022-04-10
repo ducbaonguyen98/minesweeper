@@ -5,6 +5,7 @@ import { Button } from "../commons";
 import { newGame } from "../../redux/slice/game";
 import { Link } from "react-router-dom";
 import { formatTime } from "../../untils";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export const Modal = ({  
   divRef,
@@ -43,11 +44,16 @@ export const Modal = ({
       >
         <div className="w-full">
           <div className="pb-5 space-y-10 border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-            <img
+            {/* <img
               src={image}
               alt="result"
               className="w-full h-40 rounded-tr-lg rounded-tl-lg object-cover shadow-sm opacity-50"
-            />
+            /> */}
+
+            <LazyLoadImage
+                  alt="" 
+                  src={image}
+                  className="w-full h-40 rounded-tr-lg rounded-tl-lg object-cover shadow-sm opacity-50" />
             <div className="text-center space-y-2">
               <h3 className="font-semibold text-xl">
                 {isWinGame ? "You won " : "You lost "}the game in {formatTime(timeGame)}
