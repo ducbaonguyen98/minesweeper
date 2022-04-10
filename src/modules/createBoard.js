@@ -2,14 +2,14 @@ const addNumber = (grids, row, col) => {
     for (let i = 0; i < row; i++) { 
         for (let j = 0; j < col; j++) {
             if (grids[i][j].value === 0) 
-                grids[i][j].value = text(grids, i, j);
+                grids[i][j].value = countMines(grids, i, j);
         } 
     }
 
     return grids;
 }
 
-const text = (arr, x, y) => {
+const countMines = (arr, x, y) => {
     let count = 0;
     for (let i = -1; i < 2; i++) {
         for (let j = -1; j < 2; j++) { 
