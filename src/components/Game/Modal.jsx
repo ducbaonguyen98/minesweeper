@@ -4,18 +4,7 @@ import { useScreenshot } from "use-react-screenshot";
 import { Button } from "../commons";
 import { newGame } from "../../redux/slice/game";
 import { Link } from "react-router-dom";
-
-function hhmmss(secs) {
-  function pad(num) {
-    return `0${num}`.slice(-2);
-  }
-
-  var minutes = Math.floor(secs / 60);
-  secs = secs % 60;
-  var hours = Math.floor(minutes / 60);
-  minutes = minutes % 60;
-  return `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
-}
+import { formatTime } from "../../untils";
 
 export const Modal = ({  
   divRef,
@@ -61,7 +50,7 @@ export const Modal = ({
             />
             <div className="text-center space-y-2">
               <h3 className="font-semibold text-xl">
-                {isWinGame ? "You won " : "You lost "}the game in {hhmmss(timeGame)}
+                {isWinGame ? "You won " : "You lost "}the game in {formatTime(timeGame)}
               </h3>
             </div>
             <div className="flex justify-around">
