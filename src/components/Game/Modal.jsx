@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useScreenshot } from "use-react-screenshot";
 import { Button } from "../commons";
 import { newGame } from "../../redux/slice/game";
 import { Link } from "react-router-dom";
-import { formatTime } from "../../untils";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { formatTime, randomNumber } from "../../untils";
+import { LazyLoadImage } from 'react-lazy-load-image-component'; 
 
 export const Modal = ({  
   divRef,
@@ -16,6 +16,21 @@ export const Modal = ({
 
   const timeGame = useSelector(state => state.game.timeGame);
   const isWinGame = useSelector(state => state.game.isWinGame);
+
+  const point = useMemo(() => {
+    if(!isWinGame) return 0;  
+
+    if(timeGame <= 10) {
+      return  randomNumber(timeGame * 30);
+    } else if (timeGame <= 30) {
+      return  randomNumber(timeGame * 5);
+    } else if (timeGame <= 60) {
+      return  randomNumber(timeGame * 2);
+    } else { 
+      return  randomNumber(timeGame);
+    }
+
+  },[timeGame, isWinGame]);
 
   const [image, takeScreenShot] = useScreenshot();
   useEffect(() => {
@@ -58,6 +73,10 @@ export const Modal = ({
               <h3 className="font-semibold text-xl">
                 {isWinGame ? "You won " : "You lost "}the game in {formatTime(timeGame)}
               </h3>
+              <div className="space-x-2">
+                <span className="text-gray-500 text-sm uppercase">Point:</span>
+                <span className="text-xl font-medium">{point}</span>
+              </div>
             </div>
             <div className="flex justify-around">
               <Button
